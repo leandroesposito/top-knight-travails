@@ -5,6 +5,7 @@ import knightMoves from "./knightMoves.js";
     for (let i = 0; i < 8; i++) {
       for (let j = 0; j < 8; j++) {
         const square = document.createElement("div");
+        square.className = "square";
         square.dataset.x = j;
         square.dataset.y = i;
         grid.appendChild(square);
@@ -15,7 +16,7 @@ import knightMoves from "./knightMoves.js";
   function clearGrid() {
     const squares = document.querySelectorAll(".grid div");
     squares.forEach((square) => {
-      square.className = "";
+      square.className = "square";
       square.textContent = "";
     });
   }
@@ -26,6 +27,10 @@ import knightMoves from "./knightMoves.js";
 
   function handleGridClick(event) {
     const square = event.target;
+    if (!square.classList.contains("square")) {
+      return;
+    }
+
     if (start !== null && dest !== null) {
       start = null;
       dest = null;
@@ -35,11 +40,9 @@ import knightMoves from "./knightMoves.js";
     if (start === null) {
       start = [Number(square.dataset.x), Number(square.dataset.y)];
       placeKnight(square);
-      square.classList.add("start");
     } else if (dest === null) {
       dest = [Number(square.dataset.x), Number(square.dataset.y)];
       placeKnight(square);
-      square.classList.add("dest");
 
       const path = knightMoves(start, dest);
       drawMoves(path);
@@ -52,7 +55,15 @@ import knightMoves from "./knightMoves.js";
       const square = document.querySelector(
         `[data-x="${path[i][0]}"][data-y="${path[i][1]}"]`
       );
-      square.textContent = i;
+      setTimeout(() => {
+        square.textContent = i;
+        if (i === 0) {
+          square.classList.add("start");
+        }
+        if (i === path.length - 1) {
+          square.classList.add("dest");
+        }
+      }, 200 * i);
     }
   }
 
