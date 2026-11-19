@@ -27,6 +27,10 @@ This project was specifically designed to demonstrate and practice:
 - Each legal knight move is an edge
 - BFS finds the shortest path
 
+## Screenshot
+
+![Screenshot](https://github.com/leandroesposito/top-knight-travails/blob/main/screenshots/1.png)
+
 ## Project Architecture
 
 ```
